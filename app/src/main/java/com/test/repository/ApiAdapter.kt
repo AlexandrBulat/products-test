@@ -9,4 +9,7 @@ interface ApiAdapter {
     @GET("/products")
     fun getProducts(@Query("offset") offset: Int,
                     @Query("limit") limit: Int): Flowable<MutableList<Product>>
+
+    @GET("/product")
+    fun getProduct(@Query("id") id: Int): Flowable<Product>
 }

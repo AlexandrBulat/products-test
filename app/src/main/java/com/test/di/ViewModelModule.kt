@@ -2,6 +2,7 @@ package com.test.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.test.viewModels.DetailViewModelImpl
 import com.test.viewModels.MainActivityViewModelImpl
 import com.test.viewModels.MainViewModelImpl
 import dagger.Binds
@@ -23,4 +24,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModelImpl::class)
     abstract fun provideMainViewViewModel(mainViewModel: MainViewModelImpl): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailViewModelImpl::class)
+    abstract fun providetailViewModel(detailViewModel: DetailViewModelImpl): ViewModel
 }

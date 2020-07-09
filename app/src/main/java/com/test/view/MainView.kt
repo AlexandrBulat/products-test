@@ -2,6 +2,7 @@ package com.test.view
 
 import android.content.Context
 import android.graphics.Rect
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,7 @@ import com.squareup.picasso.Picasso
 import com.test.R
 import com.test.constants.Constants.TYPE_PRODUCTS
 import com.test.databinding.MainViewBinding
+import com.test.models.Product
 import com.test.utils.toFlowable
 import com.test.viewModels.MainViewModelImpl
 import dagger.android.support.AndroidSupportInjection
@@ -93,6 +96,21 @@ class MainView : Fragment() {
             }
 
         })
+
+        productAdapter?.onTap = object : ProductAdapter.ProductAdapterCallback {
+            override fun onItemClick(product: Product) {
+                handleDetails(product)
+            }
+
+        }
+    }
+
+    private fun handleDetails(product: Product) {
+        val saveView: DetailView = DetailView.newInstance(product.id!!)
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        transaction?.let {
+            saveView.show(it, DetailView.TAG)
+        }
     }
 
     class SpacesItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {

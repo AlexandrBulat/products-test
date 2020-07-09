@@ -6,6 +6,7 @@ import io.reactivex.Flowable
 
 interface ProductService {
     fun getProducts(offset: Int): Flowable<MutableList<Product>>
+    fun getProduct(id: Int): Flowable<Product>
 }
 
 class ProductServiceImpl(
@@ -14,5 +15,9 @@ class ProductServiceImpl(
 
     override fun getProducts(offset: Int): Flowable<MutableList<Product>> {
         return apiRepository.getProducts(offset)
+    }
+
+    override fun getProduct(id: Int): Flowable<Product> {
+        return apiRepository.getProduct(id)
     }
 }
