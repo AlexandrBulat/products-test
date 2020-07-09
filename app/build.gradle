@@ -1,0 +1,97 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.test"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        renderscriptSupportModeEnabled true
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resValue("string", "affiliate_key", "000efa81-2928-41d4-9f0b-809327a9112b")
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
+    aaptOptions { cruncherEnabled = false }
+
+    signingConfigs {
+        debug {
+        }
+        release {
+        }
+        packagingOptions {
+            exclude 'META-INF/proguard/androidx-annotations.pro'
+        }
+
+        flavorDimensions "versionCode"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            buildConfigField 'Boolean', 'enableCrashlytics', 'false'
+        }
+        release {
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            buildConfigField 'Boolean', 'enableCrashlytics', 'true'
+            shrinkResources false
+            minifyEnabled false
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.3.0'
+    api 'android.arch.lifecycle:extensions:1.1.1'
+    api 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+    api 'android.arch.lifecycle:reactivestreams:1.1.1'
+    api "android.arch.navigation:navigation-fragment-ktx:1.0.0"
+    api "android.arch.navigation:navigation-ui-ktx:1.0.0"
+    api 'com.android.support:appcompat-v7:29.0.0'
+    api 'com.google.dagger:dagger:2.27'
+    api 'com.google.dagger:dagger-android-support:2.17'
+    kapt 'com.google.dagger:dagger-android-processor:2.17'
+    kapt 'com.google.dagger:dagger-compiler:2.17'
+    api 'com.squareup.picasso:picasso:2.71828'
+    api 'jp.wasabeef:picasso-transformations:2.2.1'
+    api 'io.reactivex.rxjava2:rxjava:2.2.8'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    api 'com.android.support:design:29.0.0'
+    api 'com.android.support:cardview-v7:29.0.0'
+    api 'com.squareup.retrofit2:retrofit:2.4.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    api "android.arch.work:work-runtime-ktx:1.0.1"
+    api 'com.google.code.gson:gson:2.8.5'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:3.12.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
